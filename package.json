@@ -6,7 +6,7 @@
     "bin"
   ],
   "bin": {
-    "kappa": "nodemon ./bin/kappa.js"
+    "kappa": "./bin/kappa.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
