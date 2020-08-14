@@ -2,9 +2,14 @@
   "name": "kappa",
   "version": "1.0.0",
   "description": "Run aws lambda apps locally without aws sam",
-  "main": "index.js",
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "kappa": "nodemon ./bin/kappa.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
