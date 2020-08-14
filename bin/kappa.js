@@ -13,7 +13,7 @@ const bodyParser = require('body-parser')
 const { PORT = 3000 } = process.env
 
 const [file, handle] = process.argv.slice(2)[0].split('.')
-const handler = require(path.join(__dirname, '../../../', file))[handle]
+const handler = require(path.join(__dirname, '../../../../', file))[handle]
 
 const app = express()
 app.use(morgan('dev'))
