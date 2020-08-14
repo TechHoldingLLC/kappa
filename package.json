@@ -1,0 +1,19 @@
+{
+  "name": "kappa",
+  "version": "1.0.0",
+  "description": "Run aws lambda apps locally without aws sam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechHoldingLLC/kappa.git"
+  },
+  "author": "Yorick <yorick.demichelis@techholding.co>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechHoldingLLC/kappa/issues"
+  },
+  "homepage": "https://github.com/TechHoldingLLC/kappa#readme"
+}
