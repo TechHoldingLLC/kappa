@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/TechHoldingLLC/kappa/issues"
   },
-  "homepage": "https://github.com/TechHoldingLLC/kappa#readme"
+  "homepage": "https://github.com/TechHoldingLLC/kappa#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  }
 }
