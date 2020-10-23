@@ -1,6 +1,6 @@
 {
   "name": "@techholding/kappa",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run aws lambda apps locally without aws sam",
   "files": [
     "bin"

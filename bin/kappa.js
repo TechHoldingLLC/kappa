@@ -53,13 +53,22 @@ const headersToArray = headers => {
   return arrHeaders
 }
 
-const callback = res => ({
+const callbacks = res => ({
   succeed: r => {
     setHeaders(res, r.headers)
     return res.status(r.statusCode).send(r.body)
   },
-  failure: msg => res.status(500).send(msg)
+  fail: msg => res.status(500).send(msg)
 })
+
+const callback = (res, err, r) => {
+  if (err) {
+    res.status(500).send(msg)
+  } else {
+    setHeaders(res, r.headers)
+    res.status(r.statusCode).send(r.body)
+  }
+}
 
 app.use(async (req, res) => {
   const event = {
@@ -78,7 +87,11 @@ app.use(async (req, res) => {
     body: JSON.stringify(req.body)
   }
 
-  await handler(event, { ...callback(res) })
+  try {
+    await handler(event, { ...callbacks(res) }, (err, r) => callback(res, err, r))
+  } catch (e) {
+    res.status(500).send(JSON.stringify(e))
+  }
 })
 
 app.listen(PORT, '0.0.0.0')
