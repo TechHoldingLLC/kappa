@@ -13,7 +13,6 @@ const bodyParser = require('body-parser')
 const { PORT = 3000 } = process.env
 
 const [file, handle] = process.argv.slice(2)[0].split('.')
-const handler = require(path.join(__dirname, '../../../../', file))[handle]
 
 const app = express()
 app.use(morgan('dev'))
@@ -63,14 +62,33 @@ const callbacks = res => ({
 
 const callback = (res, err, r) => {
   if (err) {
-    res.status(500).send(msg)
+    res.status(500).send(err)
   } else {
     setHeaders(res, r.headers)
     res.status(r.statusCode).send(r.body)
   }
 }
 
+const clearModulesCache = () => {
+  try {
+    const files = Object.keys(require.cache)
+    const toDelete = files.filter(f => !f.includes('node_module'))
+
+    for (const m of toDelete) {
+      delete require.cache[m]
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+const getHandler = (file, handle) => {
+  clearModulesCache()
+  return require(path.join(__dirname, '../../../../', file))[handle]
+}
+
 app.use(async (req, res) => {
+
   const event = {
     ...eventTpl,
     resource: req.url,
@@ -88,9 +106,16 @@ app.use(async (req, res) => {
   }
 
   try {
+    const handler = getHandler(file, handle)
     await handler(event, { ...callbacks(res) }, (err, r) => callback(res, err, r))
   } catch (e) {
-    res.status(500).send(JSON.stringify(e))
+    if (e.message === 'Unauthorized') {
+      res.status(401).send(e.message)
+    } else if (e.message === 'Forbidden') {
+      res.status(403).send(e.message)
+    } else {
+      res.status(500).send(JSON.stringify(e))
+    }
   }
 })
 
