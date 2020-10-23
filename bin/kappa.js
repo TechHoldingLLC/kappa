@@ -107,7 +107,14 @@ app.use(async (req, res) => {
 
   try {
     const handler = getHandler(file, handle)
-    await handler(event, { ...callbacks(res) }, (err, r) => callback(res, err, r))
+    const response = await handler(event, { ...callbacks(res) }, (err, r) => callback(res, err, r))
+    if (!res._headerSent) {
+      if (response.headers) {
+        res.status(response.statusCode).send(response.body)
+      } else {
+        res.send(response)
+      }
+    }
   } catch (e) {
     if (e.message === 'Unauthorized') {
       res.status(401).send(e.message)
