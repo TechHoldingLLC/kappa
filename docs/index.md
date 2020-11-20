@@ -1,1 +1,5 @@
-Run a node lambda locally without aws sam
+## Installation
+
+```sh
+  npm i @techholding/kappa
+```
