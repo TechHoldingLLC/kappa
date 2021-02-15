@@ -1,0 +1,5 @@
+remote_theme: TechHoldingLLC/labs-theme
+repository: TechHoldingLLC/kappa
+title: Kappa
+description: >
+  Package to run lambda apps locally without aws sam
