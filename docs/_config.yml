@@ -3,3 +3,4 @@ repository: TechHoldingLLC/kappa
 title: Kappa
 description: >
   Package to run lambda apps locally without aws sam
+image: assets/img/kappa.png
